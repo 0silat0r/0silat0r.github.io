@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hakkımızda - Elektronik ve Haberleşme Teknolojisi Topluluğu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- GENEL AYARLAR --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-image: 
+                linear-gradient(rgba(2, 6, 23, 0.4), rgba(2, 6, 23, 0.65)), 
+                url('background5.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-blend-mode: normal;
+            background-color: #020617;
+            
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- NAVİGASYON --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 8%;
+            background: rgba(2, 6, 23, 0.85);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-placeholder {
+            width: 65px;
+            height: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            overflow: hidden;
+            background: transparent;
+        }
+
+        .logo-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .logo-text h1 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            line-height: 1.2;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            color: #38bdf8;
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+        }
+
+        .search-icon {
+            color: #94a3b8;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        .search-icon:hover {
+            color: #ffffff;
+        }
+
+        /* --- HERO / İÇERİK ALANI --- */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8%;
+            position: relative;
+            flex: 1;
+            margin-top: 90px;
+            min-height: calc(100vh - 90px);
+        }
+
+        .hero-content {
+            max-width: 52%;
+            z-index: 2;
+            background: rgba(2, 6, 23, 0.55); 
+            padding: 35px;
+            border-radius: 14px;
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            max-height: 75vh;
+            overflow-y: auto;
+        }
+
+        /* Scrollbar tasarımı */
+        .hero-content::-webkit-scrollbar {
+            width: 6px;
+        }
+        .hero-content::-webkit-scrollbar-track {
+            background: rgba(2, 6, 23, 0.3);
+            border-radius: 10px;
+        }
+        .hero-content::-webkit-scrollbar-thumb {
+            background: rgba(56, 189, 248, 0.3);
+            border-radius: 10px;
+        }
+        .hero-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(56, 189, 248, 0.6);
+        }
+
+        .hero-content h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: #38bdf8;
+            text-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+        }
+
+        .hero-content h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            color: #f1f5f9;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .hero-content h3 i {
+            color: #38bdf8;
+            font-size: 1.1rem;
+        }
+
+        .hero-content p {
+            color: #94a3b8;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        /* --- SAĞ TARAF GÖRSEL ALANI --- */
+        .hero-graphics {
+            position: relative;
+            width: 42%;
+            height: 450px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .main-chip-image-container {
+            width: 220px;
+            height: 220px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid #38bdf8;
+            box-shadow: 0 0 35px rgba(56, 189, 248, 0.5);
+            animation: floatImage 4s ease-in-out infinite;
+        }
+
+        .main-chip-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes floatImage {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(1deg); }
+        }
+
+        .tech-icon-node {
+            position: absolute;
+            width: 55px;
+            height: 55px;
+            background: rgba(2, 6, 23, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            z-index: 5;
+        }
+
+        .node-bolt { 
+            top: 15%; 
+            left: 50%; 
+            transform: translateX(-50%);
+            border: 2px solid #3b82f6; 
+            color: #60a5fa; 
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.6); 
+        }
+        
+        .node-wifi { 
+            bottom: 18%; 
+            right: 15%; 
+            border: 2px solid #a855f7; 
+            color: #c084fc; 
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.6); 
+        }
+        
+        .node-infinity { 
+            bottom: 18%; 
+            left: 15%; 
+            border: 2px solid #00f2fe; 
+            color: #00f2fe; 
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.6); 
+        }
+
+        /* --- RESPONSIVE TASARIM --- */
+        @media (max-width: 968px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                justify-content: center;
+                padding-top: 50px;
+                padding-bottom: 50px;
+            }
+            .hero-content {
+                max-width: 100%;
+                margin-bottom: 50px;
+                max-height: none;
+            }
+            .hero-content h2 {
+                font-size: 2.2rem;
+            }
+            .hero-graphics {
+                width: 100%;
+            }
+            nav ul {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-area">
+            <div class="logo-placeholder">
+                <img src="logo.png" alt="Elektronik ve Haberleşme Teknolojisi Topluluğu Logosu" width="120" height="120">
+            </div>
+            <div class="logo-text">
+                <h1>Elektronik ve<br>Haberleşme Teknolojisi Topluluğu</h1>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="hakkimizda.html" class="active">Hakkımızda</a></li>
+                <li><a href="projeler.html">Projeler</a></li>
+                <li><a href="calisma_sorulari.html">Çalışma Soruları</a></li>
+            </ul>
+        </nav>
+        <div class="search-icon">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Biz Kimiz?</h2>
+            <p>Elektronik ve Haberleşme Teknolojisi Topluluğu, Çukurova Üniversitesi'ne bağlı Elektronik Haberleşme Teknolojisi öğrencilerinin kendi aralarında kurmuş olduğu, hedefleri ve idealleri doğrultusunda hem kendilerini geliştirmek hemde meslek sohbetlerini devam ettirebilmek amacıyla kurmuş olduğu topluluktur. Amaç; Elektronik ve Haberleşme sektörünü ele alarak gelecekte varılabilecek noktaları tartışmak, meslekte varolabilecek tehdit aktörleri konusunda istişare yapmak, Elektronik Haberleşme Teknolojisi öğrencilerine yol gösterici olmaktır. <br/>Kuruluş Tarihi: 01.09.2024<br/>Kurucu: Elektronik Haberleşme Teknolojisi Öğrencileri<br/>2024 ©️<br/>💻📱📞💾💡🌐<br/><br/>"Yurttaşlarım, az zamanda çok büyük işler yaptık.
+<br/>Bugün bayramdır, kutlu olsun!"<br/>Mustafa Kemal Atatürk<br/>1881 - ∞<br/>Türkiye Cumhuriyeti Devleti'nin 102. Yaşı kutlu ve mutlu olsun!</p>
+        </div>
+        
+        <div class="hero-graphics">
+            <div class="main-chip-image-container">
+                <img src="chip2.jpg" alt="Fütüristik İşlemci Çekirdeği" width="220" height="220">
+            </div>
+            
+            <div class="tech-icon-node node-bolt"><i class="fa-solid fa-bolt"></i></div>
+            <div class="tech-icon-node node-wifi"><i class="fa-solid fa-wifi"></i></div>
+            <div class="tech-icon-node node-infinity"><i class="fa-solid fa-infinity"></i></div>
+        </div>
+    </section>
+
+</body>
+</html>

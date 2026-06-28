@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeler - Elektronik ve Haberleşme Teknolojisi Topluluğu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- GENEL AYARLAR --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-image: 
+                linear-gradient(rgba(2, 6, 23, 0.4), rgba(2, 6, 23, 0.65)), 
+                url('background5.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-blend-mode: normal;
+            background-color: #020617;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- NAVİGASYON --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 8%;
+            background: rgba(2, 6, 23, 0.85);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo-area { display: flex; align-items: center; gap: 15px; }
+        .logo-placeholder { width: 65px; height: 65px; display: flex; align-items: center; justify-content: center; border-radius: 50%; overflow: hidden; background: transparent; }
+        .logo-placeholder img { width: 100%; height: 100%; object-fit: contain; }
+        .logo-text h1 { font-size: 1.1rem; font-weight: 600; letter-spacing: 0.5px; line-height: 1.2; }
+
+        nav ul { display: flex; list-style: none; gap: 30px; }
+        nav ul li a { color: #94a3b8; text-decoration: none; font-size: 0.95rem; transition: color 0.3s ease; }
+        nav ul li a:hover, nav ul li a.active { color: #38bdf8; text-shadow: 0 0 10px rgba(56, 189, 248, 0.6); }
+        .search-icon { color: #94a3b8; cursor: pointer; font-size: 1.1rem; transition: color 0.3s; }
+        .search-icon:hover { color: #ffffff; }
+
+        /* --- ANA EKRAN DÜZENİ --- */
+        .hero {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            padding: 0 8%;
+            position: relative;
+            flex: 1;
+            margin-top: 110px;
+            gap: 30px;
+            padding-bottom: 40px;
+        }
+
+        /* --- SOL TARAF: PROJE LİSTESİ --- */
+        .hero-content {
+            width: 45%;
+            z-index: 2;
+            background: rgba(2, 6, 23, 0.55); 
+            padding: 30px;
+            border-radius: 14px;
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        /* Scrollbar Tasarımları */
+        .hero-content::-webkit-scrollbar, .details-panel::-webkit-scrollbar { width: 6px; }
+        .hero-content::-webkit-scrollbar-track, .details-panel::-webkit-scrollbar-track { background: rgba(2, 6, 23, 0.3); border-radius: 10px; }
+        .hero-content::-webkit-scrollbar-thumb, .details-panel::-webkit-scrollbar-thumb { background: rgba(56, 189, 248, 0.3); border-radius: 10px; }
+
+        .hero-content h2 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: #38bdf8;
+            text-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+        }
+
+        .project-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+        
+        .project-item {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.3s, border-color 0.3s;
+        }
+
+        .project-item:hover {
+            background: rgba(56, 189, 248, 0.03);
+            border-color: rgba(56, 189, 248, 0.15);
+        }
+
+        /* İSTEDİĞİN AKTİF PROJE ARKA PLAN IŞIK EFEKTİ */
+        .project-item.active-project {
+            background: rgba(56, 189, 248, 0.08) !important;
+            border-color: #38bdf8 !important;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.15);
+            transform: translateX(5px);
+        }
+
+        .project-icon {
+            background: rgba(255, 255, 255, 0.03);
+            color: #94a3b8;
+            width: 40px; height: 40px; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem; flex-shrink: 0; transition: all 0.3s;
+        }
+        .project-item.active-project .project-icon {
+            background: #38bdf8;
+            color: #020617;
+        }
+
+        .project-text h3 { font-size: 1rem; font-weight: 600; color: #f1f5f9; }
+
+        /* --- SAĞ TARAF: DİNAMİK MALZEME VE KOD PANELİ --- */
+        .details-panel {
+            width: 52%;
+            background: rgba(2, 6, 23, 0.7);
+            border: 1px solid rgba(56, 189, 248, 0.15);
+            border-radius: 14px;
+            padding: 30px;
+            backdrop-filter: blur(8px);
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .panel-title { color: #38bdf8; font-size: 1.6rem; font-weight: 700; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 10px;}
+        .section-title { font-size: 1.1rem; color: #f1f5f9; margin: 20px 0 10px 0; display: flex; align-items: center; gap: 8px; font-weight: 600;}
+        .section-title i { color: #38bdf8; }
+        
+        .materials-container {
+            background: rgba(255,255,255,0.02);
+            padding: 15px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.03);
+        }
+        .materials-list { list-style-position: inside; color: #94a3b8; font-size: 0.95rem; line-height: 1.6; }
+
+        /* Siber Kod Bloğu Tasarımı */
+        .code-container {
+            background: #010409;
+            border: 1px solid #21262d;
+            border-radius: 8px;
+            padding: 15px;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.88rem;
+            color: #c9d1d9;
+            line-height: 1.5;
+            white-space: pre;
+        }
+
+        @media (max-width: 968px) {
+            .hero { flex-direction: column; margin-top: 100px; }
+            .hero-content, .details-panel { width: 100%; max-height: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-area">
+            <div class="logo-placeholder">
+                <img src="logo.png" alt="EHTT Logo" width="120" height="120">
+            </div>
+            <div class="logo-text">
+                <h1>Elektronik ve<br>Haberleşme Teknolojisi Topluluğu</h1>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="hakkimizda.html">Hakkımızda</a></li>
+                <li><a href="projeler.html" class="active">Projeler</a></li>
+                <li><a href="calisma_sorulari.html">Çalışma Soruları</a></li>
+            </ul>
+        </nav>
+        <div class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Arduino Projeleri</h2>
+            <ul class="project-list">
+                <li class="project-item active-project" onclick="showProject(1, this)">
+                    <div class="project-icon"><i class="fa-solid fa-lightbulb"></i></div>
+                    <div class="project-text"><h3>1. LED Yakıp Söndürme (Blink)</h3></div>
+                </li>
+                <li class="project-item" onclick="showProject(2, this)">
+                    <div class="project-icon"><i class="fa-solid fa-toggle-on"></i></div>
+                    <div class="project-text"><h3>2. Buton ile LED Kontrolü</h3></div>
+                </li>
+                <li class="project-item" onclick="showProject(3, this)">
+                    <div class="project-icon"><i class="fa-solid fa-sliders"></i></div>
+                    <div class="project-text"><h3>3. Potansiyometre ile PWM Parlaklık</h3></div>
+                </li>
+                <li class="project-item" onclick="showProject(4, this)">
+                    <div class="project-icon"><i class="fa-solid fa-sun"></i></div>
+                    <div class="project-text"><h3>4. LDR ile Gece Lambası</h3></div>
+                </li>
+                <li class="project-item" onclick="showProject(5, this)">
+                    <div class="project-icon"><i class="fa-solid fa-volume-high"></i></div>
+                    <div class="project-text"><h3>5. Buzzer ile Melodi Çalımı</h3></div>
+                </li>
+                <li class="project-item" onclick="showProject(6, this)">
+                    <div class="project-icon"><i class="fa-solid fa-temperature-half"></i></div>
+                    <div class="project-text"><h3>6. DHT11 ile Sıcaklık Ölçümü</h3></div>
+                </li>
+                <li class="project-item" onclick="showProject(7, this)">
+                    <div class="project-icon"><i class="fa-solid fa-ruler"></i></div>
+                    <div class="project-text"><h3>7. Ultrasonik Mesafe Sensörü</h3></div>
+                </li>
+                <li class="project-item" onclick="showProject(8, this)">
+                    <div class="project-icon"><i class="fa-solid fa-gear"></i></div>
+                    <div class="project-text"><h3>8. Servo Motor Kontrolü</h3></div>
+                </li>
+                <li class="project-item" onclick="showProject(9, this)">
+                    <div class="project-icon"><i class="fa-solid fa-tv"></i></div>
+                    <div class="project-text"><h3>9. LCD Ekran (2x16) Kullanımı</h3></div>
+                </li>
+                <li class="project-item" onclick="showProject(10, this)">
+                    <div class="project-icon"><i class="fa-solid fa-fire"></i></div>
+                    <div class="project-text"><h3>10. Yangın & Gaz Alarm Sistemi</h3></div>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="details-panel" id="detailsPanel">
+            <h2 class="panel-title" id="pTitle">1. LED Yakıp Söndürme (Blink)</h2>
+            
+            <div class="section-title"><i class="fa-solid fa-list-check"></i> Gerekli Malzemeler</div>
+            <div class="materials-container">
+                <ul class="materials-list" id="pMaterials">
+                    <li>Arduino UNO R3</li>
+                    <li>1x Herhangi bir renk LED</li>
+                    <li>1x 220 Ohm Direnç</li>
+                    <li>Breadboard ve Jumper Kablolar</li>
+                </ul>
+            </div>
+            
+            <div class="section-title"><i class="fa-solid fa-code"></i> Yazılacak C Kodu</div>
+            <div class="code-container" id="pCode">// Arduino Uno Blink C Kodu
+void setup() {
+  pinMode(13, OUTPUT); // 13 numaralı pini çıkış yaptık
+}
+
+void loop() {
+  digitalWrite(13, HIGH); // LED'i yak
+  delay(1000);           // 1 saniye bekle
+  digitalWrite(13, LOW);  // LED'i söndür
+  delay(1000);           // 1 saniye bekle
+}</div>
+        </div>
+    </section>
+
+    <script>
+        const projectData = {
+            1: {
+                title: "1. LED Yakıp Söndürme (Blink)",
+                materials: ["Arduino UNO R3", "1x Herhangi bir renk LED", "1x 220 Ohm Direnç", "Breadboard ve Jumper Kablolar"],
+                code: `void setup() {\n  pinMode(13, OUTPUT); // 13. pini çıkış ayarladık\n}\n\nvoid loop() {\n  digitalWrite(13, HIGH); // Güç ver (LED Yansın)\n  delay(1000);           // 1 saniye bekle\n  digitalWrite(13, LOW);  // Gücü kes (LED Sönsün)\n  delay(1000);           // 1 saniye bekle\n}`
+            },
+            2: {
+                title: "2. Buton ile LED Kontrolü",
+                materials: ["Arduino UNO R3", "1x LED", "1x Push Buton", "1x 10k Ohm Direnç", "1x 220 Ohm Direnç", "Breadboard ve Kablolar"],
+                code: `const int butonPin = 2;\nconst int ledPin = 13;\nint butonDurumu = 0;\n\nvoid setup() {\n  pinMode(ledPin, OUTPUT);\n  pinMode(butonPin, INPUT);\n}\n\nvoid loop() {\n  butonDurumu = digitalRead(butonPin);\n  if (butonDurumu == HIGH) {\n    digitalWrite(ledPin, HIGH);\n  } else {\n    digitalWrite(ledPin, LOW);\n  }\n}`
+            },
+            3: {
+                title: "3. Potansiyometre ile PWM Parlaklık",
+                materials: ["Arduino UNO R3", "1x 10k Potansiyometre", "1x LED", "1x 220 Ohm Direnç", "Breadboard"],
+                code: `const int potPin = A0;\nconst int ledPin = 9; // PWM pini olmalı\nint potDeger = 0;\nint parlaklik = 0;\n\nvoid setup() {}\n\nvoid loop() {\n  potDeger = analogRead(potPin);\n  parlaklik = map(potDeger, 0, 1023, 0, 255);\n  analogWrite(ledPin, parlaklik);\n}`
+            },
+            4: {
+                title: "4. LDR ile Gece Lambası",
+                materials: ["Arduino UNO R3", "1x LDR (Işık Sensörü)", "1x 10k Ohm Direnç", "1x LED", "1x 220 Ohm Direnç"],
+                code: `const int ldrPin = A0;\nconst int ledPin = 3;\nint isikSeviyesi;\n\nvoid setup() {\n  pinMode(ledPin, OUTPUT);\n}\n\nvoid loop() {\n  isikSeviyesi = analogRead(ldrPin);\n  if(isikSeviyesi < 400) { // Ortam karanlıksa\n    digitalWrite(ledPin, HIGH);\n  } else {\n    digitalWrite(ledPin, LOW);\n  }\n}`
+            },
+            5: {
+                title: "5. Buzzer ile Melodi Çalımı",
+                materials: ["Arduino UNO R3", "1x Pasif/Aktif Buzzer", "Jumper Kablolar"],
+                code: `const int buzzerPin = 8;\n\nvoid setup() {\n  tone(buzzerPin, 440, 500); // 440Hz (La notası) 0.5 saniye\n  delay(600);\n  tone(buzzerPin, 494, 500); // 494Hz (Si notası)\n}\n\nvoid loop() {}`
+            },
+            6: {
+                title: "6. DHT11 ile Sıcaklık Ölçümü",
+                materials: ["Arduino UNO R3", "1x DHT11 Sıcaklık ve Nem Sensörü", "DHT11 Kütüphanesi"],
+                code: `#include <DHT.h>\n#define DHTPIN 2\n#define DHTTYPE DHT11\nDHT dht(DHTPIN, DHTTYPE);\n\nvoid setup() {\n  Serial.begin(9600);\n  dht.begin();\n}\n\nvoid loop() {\n  float sicaklik = dht.readTemperature();\n  Serial.print("Sıcaklık: ");\n  Serial.println(sicaklik);\n  delay(2000);\n}`
+            },
+            7: {
+                title: "7. Ultrasonik Mesafe Sensörü",
+                materials: ["Arduino UNO R3", "1x HC-SR04 Ultrasonik Sensör", "1x Buzzer", "Kablolar"],
+                code: `const int trigPin = 9;\nconst int echoPin = 10;\nsigned long sure; int mesafe;\n\nvoid setup() {\n  pinMode(trigPin, OUTPUT); pinMode(echoPin, INPUT);\n}\n\nvoid loop() {\n  digitalWrite(trigPin, LOW); delayMicroseconds(2);\n  digitalWrite(trigPin, HIGH); delayMicroseconds(10);\n  digitalWrite(trigPin, LOW);\n  sure = pulseIn(echoPin, HIGH);\n  mesafe = sure * 0.034 / 2;\n}`
+            },
+            8: {
+                title: "8. Servo Motor Kontrolü",
+                materials: ["Arduino UNO R3", "1x SG90 Servo Motor", "Servo Kütüphanesi"],
+                code: `#include <Servo.h>\nServo myservo;\n\nvoid setup() {\n  myservo.attach(9); // Servoyu 9. pine bağladık\n}\n\nvoid loop() {\n  myservo.write(90);  // 90 dereceye git\n  delay(1000);\n  myservo.write(180); // 180 dereceye git\n  delay(1000);\n}`
+            },
+            9: {
+                title: "9. LCD Ekran (2x16) Kullanımı",
+                materials: ["Arduino UNO R3", "1x 16x2 I2C LCD Ekran", "LiquidCrystal_I2C Kütüphanesi"],
+                code: `#include <Wire.h>\n#include <LiquidCrystal_I2C.h>\nLiquidCrystal_I2C lcd(0x27, 16, 2);\n\nvoid setup() {\n  lcd.init(); lcd.backlight();\n  lcd.setCursor(0, 0);\n  lcd.print("EHTT Toplulugu");\n}\n\nvoid loop() {}`
+            },
+            10: {
+                title: "10. Yangın & Gaz Alarm Sistemi",
+                materials: ["Arduino UNO R3", "1x MQ-2 Gaz Sensörü veya Alev Sensörü", "1x Buzzer", "1x LED"],
+                code: `const int sensorPin = A0;\nconst int buzzer = 7;\n\nvoid setup() {\n  pinMode(buzzer, OUTPUT);\n}\n\nvoid loop() {\n  int veri = analogRead(sensorPin);\n  if(veri > 400) { // Eşik değeri aşılırsa\n    digitalWrite(buzzer, HIGH);\n  } else {\n    digitalWrite(buzzer, LOW);\n  }\n}`
+            }
+        };
+
+        function showProject(id, element) {
+            // Aktif olan eleman şablonunu değiştir ve parlat
+            document.querySelectorAll('.project-item').forEach(item => {
+                item.classList.remove('active-project');
+            });
+            element.classList.add('active-project');
+
+            // Sağ paneli güncelle
+            const data = projectData[id];
+            document.getElementById('pTitle').innerText = data.title;
+            document.getElementById('pCode').innerText = data.code;
+
+            // Malzemeleri baştan oluştur
+            const matList = document.getElementById('pMaterials');
+            matList.innerHTML = '';
+            data.materials.forEach(mat => {
+                const li = document.createElement('li');
+                li.innerText = mat;
+                matList.appendChild(li);
+            });
+            
+            // Paneli en yukarı kaydır (Scroll sıfırlama)
+            document.getElementById('detailsPanel').scrollTop = 0;
+        }
+    </script>
+</body>
+</html>
