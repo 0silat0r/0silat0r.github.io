@@ -217,7 +217,21 @@
         }
 
         /* --- RESPONSIVE TASARIM --- */
+        
+        /* Masaüstünde görünmeyecek mobil tetikleyiciler */
+        .menu-checkbox, .hamburger-btn {
+            display: none;
+        }
+
         @media (max-width: 968px) {
+            header {
+                padding: 15px 5%; /* Mobilde kenarları biraz daralttık */
+            }
+
+            nav {
+                order: 3; /* Elemanların dizilimini sabitledik */
+            }
+
             .hero {
                 flex-direction: column;
                 text-align: center;
@@ -235,8 +249,55 @@
             .hero-graphics {
                 width: 100%;
             }
-            nav ul {
+
+            /* --- SİHİRLİ MOBİL MENÜ AYARLARI --- */
+            
+            /* Hamburger Butonu Üç Çizgi İkonu */
+            .hamburger-btn {
+                display: block;
+                font-size: 1.6rem;
+                color: #94a3b8;
+                cursor: pointer;
+                transition: color 0.3s;
+                order: 2;
+            }
+            
+            .hamburger-btn:hover {
+                color: #38bdf8;
+            }
+
+            /* Arka plandaki görünmez kontrol kutumuz */
+            .menu-checkbox {
                 display: none;
+            }
+
+            /* Menü Linklerini Mobilde Panele Dönüştürme */
+            nav ul {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 95px; /* Başlık hizasından başlasın */
+                left: -100%; /* Ekranın sol dışına gizle */
+                width: 100%;
+                height: calc(100vh - 95px);
+                background: rgba(2, 6, 23, 0.96);
+                backdrop-filter: blur(15px);
+                gap: 25px;
+                padding: 40px 0;
+                text-align: center;
+                transition: left 0.4s cubic-bezier(0.1, 1, 0.1, 1); /* Yumuşak kayma efekti */
+                border-top: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+            nav ul li a {
+                font-size: 1.2rem;
+                display: block;
+                padding: 10px 0;
+            }
+
+            /* Hamburger butonuna basılıp checkbox seçildiğinde menüyü içeri kaydır */
+            .menu-checkbox:checked ~ ul {
+                left: 0;
             }
         }
     </style>
@@ -253,6 +314,10 @@
             </div>
         </div>
         <nav>
+            <input type="checkbox" id="menu-toggle" class="menu-checkbox">
+            <label for="menu-toggle" class="hamburger-btn">
+                <i class="fa-solid fa-bars"></i>
+            </label>
             <ul>
                 <li><a href="index.html" class="active">Ana Sayfa</a></li>
                 <li><a href="hakkimizda.html">Hakkımızda</a></li>
