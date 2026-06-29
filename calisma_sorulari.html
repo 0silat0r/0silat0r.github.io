@@ -58,8 +58,6 @@
         nav ul { display: flex; list-style: none; gap: 30px; }
         nav ul li a { color: #94a3b8; text-decoration: none; font-size: 0.95rem; transition: color 0.3s ease; }
         nav ul li a:hover, nav ul li a.active { color: #38bdf8; text-shadow: 0 0 10px rgba(56, 189, 248, 0.6); }
-        .search-icon { color: #94a3b8; cursor: pointer; font-size: 1.1rem; transition: color 0.3s; }
-        .search-icon:hover { color: #ffffff; }
 
         /* --- ANA EKRAN DÜZENİ --- */
         .hero {
@@ -242,9 +240,76 @@
             display: none; /* İlk başta gizli */
         }
 
+        /* --- RESPONSIVE TASARIM --- */
+        
+        /* Masaüstünde görünmeyecek mobil elemanlar */
+        .menu-checkbox, .hamburger-btn {
+            display: none;
+        }
+
         @media (max-width: 968px) {
-            .hero { flex-direction: column; margin-top: 100px; }
-            .hero-content, .quiz-panel { width: 100%; }
+            header {
+                padding: 15px 5%; /* Mobilde kenarları daralttık */
+            }
+
+            .hero { 
+                flex-direction: column; 
+                margin-top: 100px; 
+            }
+            
+            .hero-content, .quiz-panel { 
+                width: 100%; 
+            }
+
+            /* --- MOBİL MENÜ DÜZENLEMESİ --- */
+            
+            /* Hamburger Butonu Üç Çizgi İkonu */
+            .hamburger-btn {
+                display: block;
+                font-size: 1.7rem;
+                color: #94a3b8;
+                cursor: pointer;
+                transition: color 0.3s;
+            }
+            
+            .hamburger-btn:hover {
+                color: #38bdf8;
+            }
+
+            /* Arka plandaki görünmez kontrol kutumuz */
+            .menu-checkbox {
+                display: none;
+            }
+
+            /* Menü Linklerini Mobilde Panele Dönüştürme */
+            nav ul {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 95px; /* Başlık hizasından başlasın */
+                left: -100%; /* Ekranın sol dışına gizle */
+                width: 100%;
+                height: calc(100vh - 95px);
+                background: rgba(2, 6, 23, 0.96);
+                backdrop-filter: blur(15px);
+                gap: 25px;
+                padding: 40px 0;
+                text-align: center;
+                transition: left 0.4s cubic-bezier(0.1, 1, 0.1, 1); /* Yumuşak kayma efekti */
+                border-top: 1px solid rgba(255, 255, 255, 0.05);
+                z-index: 999;
+            }
+
+            nav ul li a {
+                font-size: 1.2rem;
+                display: block;
+                padding: 10px 0;
+            }
+
+            /* Hamburger butonuna basılıp checkbox seçildiğinde menüyü içeri kaydır */
+            .menu-checkbox:checked ~ ul {
+                left: 0;
+            }
         }
     </style>
 </head>
@@ -260,6 +325,10 @@
             </div>
         </div>
         <nav>
+            <input type="checkbox" id="menu-toggle" class="menu-checkbox">
+            <label for="menu-toggle" class="hamburger-btn">
+                <i class="fa-solid fa-bars"></i>
+            </label>
             <ul>
                 <li><a href="index.html">Ana Sayfa</a></li>
                 <li><a href="hakkimizda.html">Hakkımızda</a></li>
@@ -267,13 +336,12 @@
                 <li><a href="calisma_sorulari.html" class="active">Çalışma Soruları</a></li>
             </ul>
         </nav>
-        <div class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
     </header>
 
     <section class="hero">
         <div class="hero-content">
             <h2>Çalışma Soruları</h2>
-            <p>Topluluğumuz üyelerinin algoritma kurma, devre analizi yapma ve gömülü sistem kodlama becerilerini test etmeleri için hazırlanan dijital arşive buradan ulaşabilirsiniz.</p>
+            <p>Topluluğumuz üyelerinin algoritma kurma, devre analizi yapma ogmülü sistem kodlama becerilerini test etmeleri için hazırlanan dijital arşive buradan ulaşabilirsiniz.</p>
             
             <div class="drive-box">
                 <i class="fa-shadow fa-solid fa-folder-open"></i>
@@ -319,7 +387,7 @@ void loop() {}</div>
                 <strong><i class="fa-solid fa-circle-info"></i> Çözüm ve Analiz:</strong><br>
                 <code>x++</code> ifadesi (Post-increment) değişkeni kontrol edildikten <strong>sonra</strong> artırır. 
                 <code>if(5 > 5)</code> ifadesi yanlış (false) olduğu için kod <code>else</code> bloğuna sapar ve ekrana <strong>B - </strong> yazdırır. 
-                Ancak if satırı geçildiği an <code>x</code>'in değeri 1 artarak <strong>6</strong> olmuştur. Bu yüzden yanına 6 basılır. Doğru cevap <strong>B - 6</strong>'dır!
+                Halbuki if satırı geçildiği an <code>x</code>'in değeri 1 artarak <strong>6</strong> olmuştur. Bu yüzden yanına 6 basılır. Doğru cevap <strong>B - 6</strong>'dır!
             </div>
         </div>
     </section>
